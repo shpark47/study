@@ -160,11 +160,19 @@ public class AjaxController {
     }
 
     @PutMapping("members")
-    public int updateMember(@RequestParam("val") String value, @RequestParam("col") String column, @RequestParam("id") String id) {
-        HashMap<String, String> map = new HashMap<>();
-        map.put("val", value);
-        map.put("col", column);
-        map.put("id", id);
+//    public int updateMember(@RequestParam("val") String value, @RequestParam("col") String column, @RequestParam("id") String id) {
+    public int insertMember(@RequestBody HashMap<String,String> map) {
+//        HashMap<String, String> map = new HashMap<>();
+//        map.put("val", value);
+//        map.put("col", column);
+//        map.put("id", id);
+
+        if (map.get("col").equals("NICKNAME")){
+            int count = mService.checkValue(map);
+            if (count != 0) {
+                return -1;
+            }
+        }
         return mService.updateMemberItem(map);
     }
 }
